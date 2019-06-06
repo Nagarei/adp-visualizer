@@ -47,6 +47,9 @@ var framework;
             this.x = 0;
             this.y += 1;
         };
+        FileParser.prototype.is_eol = function () {
+            return this.content[this.y].length >= this.x;
+        };
         FileParser.prototype.unwind = function () {
             if (this.x == 0) {
                 this.y -= 1;
@@ -254,8 +257,7 @@ var visualizer;
             // parse
             var N = inputParser.getInt();
             this.order = [];
-            var visited = new Array(N);
-            for (var i = 0; i < N; ++i) {
+            for (var i = 0; !parser.is_eol(); ++i) {
                 var p1 = parser.getInt();
                 var p2 = parser.getInt();
                 if (p1 < 0 || p1 >= N)

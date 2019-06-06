@@ -53,6 +53,9 @@ module framework {
             this.x = 0;
             this.y += 1;
         }
+        public is_eol() {
+            return this.content[this.y].length >= this.x;
+        }
 
         public unwind() {
             if (this.x == 0) {
@@ -284,8 +287,7 @@ module visualizer {
             // parse
             const N = inputParser.getInt();
             this.order = [];
-            let visited: boolean[] = new Array(N);
-            for (let i = 0; i < N; ++ i) {
+            for (let i = 0; !parser.is_eol(); ++ i) {
                 const p1 = parser.getInt();
                 const p2 = parser.getInt();
 
