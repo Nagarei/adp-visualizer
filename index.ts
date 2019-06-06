@@ -286,13 +286,14 @@ module visualizer {
             this.order = [];
             let visited: boolean[] = new Array(N);
             for (let i = 0; i < N; ++ i) {
-                const p = parser.getInt();
+                const p1 = parser.getInt();
+                const p2 = parser.getInt();
 
-                if (p < 0 || p >= N) alert("<tester>: index out of range");
-                if (visited[p]) alert("<tester>: reached the same vertex twice");
+                if (p1 < 0 || p1 >= N) alert("<tester>: index out of range");
+                if (p2 < 0 || p2 >= N) alert("<tester>: index out of range");
 
-                this.order.push(p);
-                visited[p] = true;
+                this.order.push(p1);
+                this.order.push(p2);
             }
             parser.getNewline();
         }
@@ -332,7 +333,7 @@ module visualizer {
         public init(input: InputFile, output: OutputFile) {
             this.points = input.points;
             this.order = output.order;
-            this.N = this.order.length;
+            this.N = this.order.length/2;
 
             let minX = 1000000;
             let maxX = -1000000;
@@ -381,9 +382,9 @@ module visualizer {
 
         public drawNext() {
             // update
-            ++this.idx;
-            const cur = this.points[this.order[this.idx % this.N]];
-            const prv = this.idx > 0 ? this.points[this.order[this.idx - 1]] : null;
+            this.idx += 2;
+            const cur = this.points[this.order[this.idx - 0]];
+            const prv = this.points[this.order[this.idx - 1]];
             if (prv != null) {
                 const dx = cur.x - prv.x;
                 const dy = cur.y - prv.y;
@@ -391,7 +392,7 @@ module visualizer {
                 this.penaltySum += this.penaltyDelta;
             }
 
-            this.visitingInput.value = this.order[this.idx % this.N].toString();
+            this.visitingInput.value = this.order[this.idx].toString();
             this.penaltyDeltaInput.value = this.penaltyDelta == null ? "" : this.penaltyDelta.toString();
             this.penaltySumInput.value = this.penaltySum.toString();
 
