@@ -54,7 +54,7 @@ module framework {
             this.y += 1;
         }
         public is_eol() {
-            return this.content[this.y].length >= this.x;
+            return this.x >= this.content[this.y].length;
         }
 
         public unwind() {

@@ -48,7 +48,7 @@ var framework;
             this.y += 1;
         };
         FileParser.prototype.is_eol = function () {
-            return this.content[this.y].length >= this.x;
+            return this.x >= this.content[this.y].length;
         };
         FileParser.prototype.unwind = function () {
             if (this.x == 0) {
