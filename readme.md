@@ -1,7 +1,7 @@
 # Visualizer - Travelling Salesman Problem
 
 ## URL
-https://Nagarei.github.io/tsp-visualizer/
+https://nagarei.github.io/tsp-visualizer/index.html
 
 ## input
 
