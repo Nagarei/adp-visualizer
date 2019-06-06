@@ -256,13 +256,14 @@ var visualizer;
             this.order = [];
             var visited = new Array(N);
             for (var i = 0; i < N; ++i) {
-                var p = parser.getInt();
-                if (p < 0 || p >= N)
+                var p1 = parser.getInt();
+                var p2 = parser.getInt();
+                if (p1 < 0 || p1 >= N)
                     alert("<tester>: index out of range");
-                if (visited[p])
-                    alert("<tester>: reached the same vertex twice");
-                this.order.push(p);
-                visited[p] = true;
+                if (p2 < 0 || p2 >= N)
+                    alert("<tester>: index out of range");
+                this.order.push(p1);
+                this.order.push(p2);
             }
             parser.getNewline();
         }
@@ -286,7 +287,7 @@ var visualizer;
             var _this = this;
             this.points = input.points;
             this.order = output.order;
-            this.N = this.order.length;
+            this.N = this.order.length / 2;
             var minX = 1000000;
             var maxX = -1000000;
             var minY = 1000000;
@@ -334,16 +335,16 @@ var visualizer;
         Visualizer.prototype.drawNext = function () {
             var _this = this;
             // update
-            ++this.idx;
-            var cur = this.points[this.order[this.idx % this.N]];
-            var prv = this.idx > 0 ? this.points[this.order[this.idx - 1]] : null;
+            this.idx += 2;
+            var cur = this.points[this.order[this.idx - 0]];
+            var prv = this.points[this.order[this.idx - 1]];
             if (prv != null) {
                 var dx = cur.x - prv.x;
                 var dy = cur.y - prv.y;
                 this.penaltyDelta = Math.round(Math.sqrt(dx * dx + dy * dy) + 1e-9);
                 this.penaltySum += this.penaltyDelta;
             }
-            this.visitingInput.value = this.order[this.idx % this.N].toString();
+            this.visitingInput.value = this.order[this.idx].toString();
             this.penaltyDeltaInput.value = this.penaltyDelta == null ? "" : this.penaltyDelta.toString();
             this.penaltySumInput.value = this.penaltySum.toString();
             var drawPixel = function (x, y) {
