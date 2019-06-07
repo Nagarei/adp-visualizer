@@ -335,7 +335,7 @@ module visualizer {
         public init(input: InputFile, output: OutputFile) {
             this.points = input.points;
             this.order = output.order;
-            this.N = this.order.length/2;
+            this.N = this.order.length;
 
             let minX = 1000000;
             let maxX = -1000000;

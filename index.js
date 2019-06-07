@@ -289,7 +289,7 @@ var visualizer;
             var _this = this;
             this.points = input.points;
             this.order = output.order;
-            this.N = this.order.length / 2;
+            this.N = this.order.length;
             var minX = 1000000;
             var maxX = -1000000;
             var minY = 1000000;
