@@ -308,7 +308,7 @@ var visualizer;
             var centerX = (maxX + minX) / 2;
             var centerY = (maxY + minY) / 2;
             var scale = (this.canvas.height - 50) / size; // height == width
-            this.pointSize = Math.max(1, Math.min(40, Math.round(120 / Math.sqrt(this.N))));
+            this.pointSize = Math.max(1, Math.min(40, Math.round(120 / Math.sqrt(this.points.length))));
             this.pointSize2 = Math.floor(this.pointSize / 2);
             this.transformX = function (x) {
                 return Math.round((x - centerX) * scale + _this.canvas.width / 2);
