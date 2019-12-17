@@ -235,17 +235,23 @@ var visualizer;
         function InputFile(content) {
             var parser = new framework.FileParser('<input-file>', content);
             // parse
+            var sx = parser.getInt();
+            var sy = parser.getInt();
+            parser.getNewline();
             var N = parser.getInt();
             parser.getNewline();
-            if (N < 3)
+            if (N < 2)
                 alert("<tester>: number of points is so small");
             this.points = [];
-            for (var i = 0; i < N; ++i) {
-                var x = parser.getFloat();
-                var y = parser.getFloat();
-                parser.getNewline();
+            for (var i = 0; i < 2*N; ++i) {
+                var x = parser.getInt();
+                var y = parser.getInt();
+                if((i%2) == 1) {
+                    parser.getNewline();
+                }
                 this.points.push({ x: x, y: y });
             }
+            this.points.push({ x: sx, y: sy });
         }
         return InputFile;
     }());
@@ -259,13 +265,9 @@ var visualizer;
             this.order = [];
             for (var i = 0; !parser.is_eol(); ++i) {
                 var p1 = parser.getInt();
-                var p2 = parser.getInt();
-                if (p1 < 0 || p1 >= N)
-                    alert("<tester>: index out of range");
-                if (p2 < 0 || p2 >= N)
+                if (p1 < 0 || p1 >= 2*N)
                     alert("<tester>: index out of range");
                 this.order.push(p1);
-                this.order.push(p2);
             }
             parser.getNewline();
         }

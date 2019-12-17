@@ -1,33 +1,35 @@
-# Visualizer - Travelling Salesman Problem
+# Visualizer
 
 ## URL
-https://nagarei.github.io/tsp-visualizer/index.html
+https://nagarei.github.io/adp-visualizer/index.html
 
 ## input
 
 ```
+S_x S_y
 N
-x_0 y_0
-x_1 y_1
+x_0 y_0 x_1 y_1
+x_2 y_2 x_3 y_3
  :
-x_{N-1} y_{N-1}
+x_{2N-2} y_{2N-2} x_{2N-1} y_{2N-1}
+M
 ```
 
-- N >= 3
-- x_i, y_i は実数
+- N >= 2
+- x_i, y_i は整数
 
 
 ## output
 
 ```
-p_1 p_2 ... p_N
+p_1 p_2 ... p_{2N}
 ```
 
 - 空白区切り
-- 0 <= p_i < N
-- { p_1, p_2, ... , p_N } は順列
+- 0 <= p_i < 2N
+- { p_1, p_2, ... , p_2N } は順列
 
 
 ## tips
 - 全然テストをしていないのでバグ報告大歓迎です．
-- kmyk さんの [longcontest visualizer framework](https://github.com/kmyk/longcontest-visualizer-framework) を参考にさせていただきました．
+- riantkb さんの [tsp-visualizer](https://github.com/riantkb/tsp-visualizer) を参考にさせていただきました．
