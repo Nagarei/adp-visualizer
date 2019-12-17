@@ -339,6 +339,38 @@ var visualizer;
         Visualizer.prototype.drawNext = function () {
             var _this = this;
             // update
+            ++this.idx;
+            var cur = this.points[this.order[this.idx % this.N]];
+            var prv = this.idx > 0 ? this.points[this.order[this.idx - 1]] : null;
+            if (prv != null) {
+                var dx = cur.x - prv.x;
+                var dy = cur.y - prv.y;
+                this.penaltyDelta = Math.round(Math.sqrt(dx * dx + dy * dy) + 1e-9);
+                this.penaltySum += this.penaltyDelta;
+            }
+            this.visitingInput.value = this.order[this.idx % this.N].toString();
+            this.penaltyDeltaInput.value = this.penaltyDelta == null ? "" : this.penaltyDelta.toString();
+            this.penaltySumInput.value = this.penaltySum.toString();
+            var drawPixel = function (x, y) {
+                _this.ctx.fillRect(_this.transformX(x) - _this.pointSize2, _this.transformY(y) - _this.pointSize2, _this.pointSize, _this.pointSize);
+            };
+            // fill current point
+            this.ctx.fillStyle = 'red';
+            drawPixel(cur.x, cur.y);
+            // draw line
+            if (prv != null) {
+                this.ctx.strokeStyle = 'blue';
+                this.ctx.lineWidth = 1;
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.transformX(prv.x), this.transformY(prv.y));
+                this.ctx.lineTo(this.transformX(cur.x), this.transformY(cur.y));
+                this.ctx.stroke();
+                this.ctx.fillStyle = 'gray';
+                drawPixel(prv.x, prv.y);
+            }
+            /*
+            var _this = this;
+            // update
             this.idx += 2;
             var cur = this.points[this.order[this.idx - 0]];
             var prv = this.points[this.order[this.idx - 1]];
@@ -367,7 +399,7 @@ var visualizer;
                 this.ctx.stroke();
                 this.ctx.fillStyle = 'gray';
                 drawPixel(prv.x, prv.y);
-            }
+            }*/
         };
         Visualizer.prototype.draw = function (value) {
             if (this.idx > value)

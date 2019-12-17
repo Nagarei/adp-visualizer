@@ -1,7 +1,7 @@
 # Visualizer
 
 ## URL
-https://nagarei.github.io/adp-visualizer/index.html
+https://nagarei.github.io/adp-visualizer/
 
 ## input
 
