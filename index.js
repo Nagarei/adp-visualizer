@@ -333,22 +333,25 @@ var visualizer;
             this.ctx.fillStyle = 'black';
             for (var _i = 0, _a = this.points; _i < _a.length; _i++) {
                 var point = _a[_i];
+                this.ctx.fillStyle = (_i != _a.length-1) ? (_i % 2 == 0 ? 'green' : 'magenta') : 'black';
                 drawPixel(point.x, point.y);
             }
+            this.ctx.fillStyle = 'black';
         };
         Visualizer.prototype.drawNext = function () {
             var _this = this;
+            var Vnum = 2*this.N;
             // update
             ++this.idx;
-            var cur = this.points[this.order[this.idx % this.N]];
-            var prv = this.idx > 0 ? this.points[this.order[this.idx - 1]] : null;
+            var cur = this.idx < Vnum ? this.points[this.order[this.idx]] : this.points[Vnum];
+            var prv = this.idx > 0 ? this.points[this.order[this.idx - 1]] : this.points[Vnum];
             if (prv != null) {
                 var dx = cur.x - prv.x;
                 var dy = cur.y - prv.y;
                 this.penaltyDelta = Math.round(Math.sqrt(dx * dx + dy * dy) + 1e-9);
                 this.penaltySum += this.penaltyDelta;
             }
-            this.visitingInput.value = this.order[this.idx % this.N].toString();
+            this.visitingInput.value = this.order[this.idx].toString();
             this.penaltyDeltaInput.value = this.penaltyDelta == null ? "" : this.penaltyDelta.toString();
             this.penaltySumInput.value = this.penaltySum.toString();
             var drawPixel = function (x, y) {
@@ -365,7 +368,7 @@ var visualizer;
                 this.ctx.moveTo(this.transformX(prv.x), this.transformY(prv.y));
                 this.ctx.lineTo(this.transformX(cur.x), this.transformY(cur.y));
                 this.ctx.stroke();
-                this.ctx.fillStyle = 'gray';
+                this.ctx.fillStyle = this.idx > 0 ? (this.order[this.idx - 1] % 2 == 0 ? 'green' : 'magenta') : 'black';
                 drawPixel(prv.x, prv.y);
             }
             /*
