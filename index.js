@@ -252,7 +252,7 @@ var visualizer;
                 this.points.push({ x: x, y: y });
             }
             this.points.push({ x: sx, y: sy });
-            this.M = parser.getInt();
+            parser.getInt();
         }
         return InputFile;
     }());
@@ -266,6 +266,19 @@ var visualizer;
             inputParser.getInt();
             inputParser.getNewline();
             var N = inputParser.getInt();
+            inputParser.getNewline();
+            if (N < 2)
+                alert("<tester>: number of points is so small");
+            this.points = [];
+            for (var i = 0; i < 2*N; ++i) {
+                var x = inputParser.getInt();
+                var y = inputParser.getInt();
+                if((i%2) == 1) {
+                    inputParser.getNewline();
+                }
+            }
+            var M = inputParser.getInt();
+
             this.order = [];
             for (var i = 0; !parser.is_eol(); ++i) {
                 var p1 = parser.getInt();
@@ -274,6 +287,33 @@ var visualizer;
                 this.order.push(p1);
             }
             parser.getNewline();
+            
+            var visited = []
+            for (var i = 0; i <= 2*N; ++i) {
+                visited.push(false);
+            }
+            var have = 0;
+            for (var i = 0; i < this.order.length; ++i) {
+                if(visited[this.order[i]]){
+                    alert("<tester>: visited twice");
+                    break;
+                }
+                if(this.order[i]%2 == 0){
+                    if(have >= M){
+                        alert("<tester>: have too many");
+                        break;
+                    }
+                    ++have;
+                }
+                else{
+                    if(!visited[this.order[i] - 1]){
+                        alert("<tester>: get baggage not yet");
+                        break;
+                    }
+                    --have;
+                }
+                visited[this.order[i]] = true;
+            }
         }
         return OutputFile;
     }());
