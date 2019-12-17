@@ -344,7 +344,7 @@ var visualizer;
         };
         Visualizer.prototype.drawNext = function () {
             var _this = this;
-            var Vnum = 2*this.N;
+            var Vnum = this.N;
             // update
             ++this.idx;
             var cur = this.idx < Vnum ? this.points[this.order[this.idx]] : this.points[Vnum];
