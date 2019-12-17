@@ -261,6 +261,9 @@ var visualizer;
             var inputParser = new framework.FileParser('<input-file>', inputContent);
             var parser = new framework.FileParser('<output-file>', content);
             // parse
+            parser.getInt();
+            parser.getInt();
+            parser.getNewline();
             var N = inputParser.getInt();
             this.order = [];
             for (var i = 0; !parser.is_eol(); ++i) {
@@ -351,7 +354,7 @@ var visualizer;
                 this.penaltyDelta = Math.round(Math.sqrt(dx * dx + dy * dy) + 1e-9);
                 this.penaltySum += this.penaltyDelta;
             }
-            this.visitingInput.value = this.order[this.idx].toString();
+            this.visitingInput.value = (this.idx < Vnum ? this.order[this.idx] : Vnum).toString();
             this.penaltyDeltaInput.value = this.penaltyDelta == null ? "" : this.penaltyDelta.toString();
             this.penaltySumInput.value = this.penaltySum.toString();
             var drawPixel = function (x, y) {
