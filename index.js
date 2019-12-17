@@ -252,6 +252,7 @@ var visualizer;
                 this.points.push({ x: x, y: y });
             }
             this.points.push({ x: sx, y: sy });
+            this.M = parser.getInt();
         }
         return InputFile;
     }());
@@ -261,9 +262,9 @@ var visualizer;
             var inputParser = new framework.FileParser('<input-file>', inputContent);
             var parser = new framework.FileParser('<output-file>', content);
             // parse
-            parser.getInt();
-            parser.getInt();
-            parser.getNewline();
+            inputParser.getInt();
+            inputParser.getInt();
+            inputParser.getNewline();
             var N = inputParser.getInt();
             this.order = [];
             for (var i = 0; !parser.is_eol(); ++i) {
